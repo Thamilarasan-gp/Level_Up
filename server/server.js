@@ -2,7 +2,7 @@
 require("dotenv").config();
 const express = require("express");
 const connectDB = require("./config/db");
-
+const cors = require("cors");
 const app = express();
 
 // Connect DB
@@ -20,6 +20,13 @@ const courseUploadRoutes = require("./routes/courseUploadRoutes");
 const notificationRoutes = require("./routes/notificationRoutes");
 const paymentRoutes = require("./routes/paymentRoutes");
 
+app.use(cors({
+  origin: [
+    "http://localhost:5173",   // local React
+    "https://your-frontend-url.com" // deployed frontend
+  ],
+  credentials: true
+}));
 // Route usage
 app.use("/api/auth", authRoutes);
 app.use("/api/courses", courseRoutes);
